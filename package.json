@@ -1,0 +1,26 @@
+{
+  "name": "plutus-finance-tracking",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/shared",
+    "packages/backend",
+    "packages/frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,magenta \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "npm --prefix packages/backend run dev",
+    "dev:frontend": "npm --prefix packages/frontend run dev",
+    "build": "npm --prefix packages/shared run build && npm --prefix packages/backend run build && npm --prefix packages/frontend run build",
+    "db:migrate": "npm --prefix packages/backend run db:migrate",
+    "db:migrate:undo": "npm --prefix packages/backend run db:migrate:undo",
+    "db:migration:create": "npm --prefix packages/backend run db:migration:create --",
+    "db:seed": "npm --prefix packages/backend run db:seed"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
