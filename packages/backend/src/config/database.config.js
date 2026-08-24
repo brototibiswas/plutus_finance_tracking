@@ -1,7 +1,10 @@
 // Single source of truth for DB connection settings.
-// Read by sequelize-cli (via .sequelizerc) and by src/db/index.ts at runtime.
-// Kept outside src/ so the same relative path resolves from both src/db and dist/db.
-require('dotenv').config();
+// Read by sequelize-cli via .sequelizerc.
+// The path is explicit because sequelize-cli runs from the package root,
+// so a bare dotenv.config() would look for .env there and silently miss this one.
+const path = require('path');
+
+require('dotenv').config({ path: path.resolve(__dirname, '.env') });
 
 const base = {
   username: process.env.DB_USER || 'postgres',
@@ -13,7 +16,7 @@ const base = {
 };
 
 module.exports = {
-  development: { ...base, logging: console.log },
+  development: { ...base,  logging: process.env.LOGGING === 'true' ? console.log : false, },
   test: { ...base, database: `${base.database}_test`, logging: false },
   production: { ...base, logging: false },
 };
