@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.library.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "tsBuildInfoFile": "dist/.tsbuildinfo"
+  },
+  "include": ["index.ts", "components"],
+  "exclude": ["node_modules", "dist"]
+}
