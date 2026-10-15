@@ -80,3 +80,25 @@ finance-tracker/
 │           └── nextjs.json
 │
 └── node_modules/                    # single hoisted install, root-level only
+
+# Database migrations
+
+Migrations live in `packages/db/src/migrations` and run through `sequelize-cli`, using the scripts in `packages/db/package.json`. Run these from `packages/db`:
+
+```sh
+cd packages/db
+
+# create a new timestamped migration stub (the -- passes the name through npm)
+npm run db:migration:create -- create-transactions-table
+
+# apply all pending migrations
+npm run db:migrate
+
+# undo the most recent migration
+npm run db:migrate:undo
+
+# run all seeders
+npm run db:seed
+```
+
+Connection settings come from `packages/db/src/config/database.config.cjs`, which reads `DB_USER`, `DB_PASSWORD`, `DB_NAME`, `DB_HOST` and `DB_PORT` from `packages/db/.env`. Postgres must be running and the database must exist before you migrate.
