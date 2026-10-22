@@ -2,7 +2,8 @@ import { DataTypes, Model } from "sequelize";
 import {Txn as TxnAttributes, TxnType} from "@ft/core";
 import { sequelize } from "../sequelize";
 
-export class Txn extends Model<TxnAttributes, Omit<TxnAttributes, 'id' | 'createdAt'>> {}
+export interface Txn extends TxnAttributes {}
+export class Txn extends Model<TxnAttributes, Omit<TxnAttributes, 'id' | 'createdAt' | 'updatedAt'>> {}
 
 Txn.init(
     {
